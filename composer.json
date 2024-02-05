@@ -1,0 +1,48 @@
+{
+  "name": "skybluesofa/c2c-blanket-framework",
+  "description": "A Laravel (php) package that helps create C2C crochet designs for a temperature blanket",
+  "type": "library",
+  "keywords": [
+    "laravel",
+    "c2c",
+    "crochet"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dave Rogers",
+      "email": "connect@skybluesofa.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0 || ^8.1",
+    "laravel/framework": "^9.0 || ^10.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.2",
+    "orchestra/testbench": "^5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "SkyBlueSofa\\C2CBlanketFramework\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SkyBlueSofa\\C2CBlanketFramework\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "scripts": {
+    "post-update-cmd": [
+      "@php artisan vendor:publish --provider=C2CBlanketServiceProvider"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "SkyBlueSofa\\C2CBlanketFramework\\C2CBlanketServiceProvider"
+      ]
+    }
+  }
+}
