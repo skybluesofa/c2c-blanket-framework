@@ -11,11 +11,11 @@ class OpenMeteo
 {
     protected ?Carbon $date;
 
-    protected string $latitude;
+    protected ?string $latitude;
 
-    protected string $longitude;
+    protected ?string $longitude;
 
-    protected string $timezone;
+    protected ?string $timezone;
 
     protected int $ttl = 60 * 60 * 24;
 
@@ -40,6 +40,10 @@ class OpenMeteo
             $baseUrl = 'https://archive-api.open-meteo.com/v1/archive?latitude='.$this->latitude.'&longitude='.$this->longitude.'&start_date='.$startDate.'&end_date='.$endDate.'&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,daylight_duration,rain_sum,snowfall_sum&temperature_unit=fahrenheit&precipitation_unit=inch&timezone='.$this->timezone;
 
             $weatherInfo = json_decode(Http::get($baseUrl), true);
+            if (json_last_error() != JSON_ERROR_NONE) {
+                return null;
+            }
+
             foreach ($weatherInfo['daily']['time'] as $key => $date) {
                 $weatherDate = new Carbon($date);
                 if ($weatherDate->format('Ymd') > $now->format('Ymd')) {

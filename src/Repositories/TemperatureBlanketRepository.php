@@ -104,12 +104,16 @@ class TemperatureBlanketRepository
         return $designScheme;
     }
 
-    protected function temperatureBlanketDotComDesignExists(string $designName): bool
+    protected function temperatureBlanketDotComDesignExists(?string $designName = null): bool
     {
+        if (empty($designName)) {
+            return false;
+        }
+
         return File::exists(App::configPath().'/temperature-blanket-dot-com/'.$designName.'.txt');
     }
 
-    public function temperatureBlanketDotComDesignContents(string $designName): ?array
+    public function temperatureBlanketDotComDesignContents(?string $designName = null): ?array
     {
         if (! $this->temperatureBlanketDotComDesignExists($designName)) {
             return null;
@@ -118,12 +122,16 @@ class TemperatureBlanketRepository
         return TemperatureBlanketDotCom::generate($designName);
     }
 
-    protected function colorSchemeExists(string $schemeName): bool
+    protected function colorSchemeExists(?string $schemeName = null): bool
     {
+        if (empty($schemeName)) {
+            return false;
+        }
+
         return File::exists(App::configPath().'/colors/'.$schemeName.'.txt');
     }
 
-    protected function colorSchemeContents(string $schemeName): ?array
+    protected function colorSchemeContents(?string $schemeName = null): ?array
     {
         if (! $this->colorSchemeExists($schemeName)) {
             return null;
@@ -132,12 +140,16 @@ class TemperatureBlanketRepository
         return File::get(App::configPath().'/colors/'.$schemeName.'.txt');
     }
 
-    protected function designSchemeExists(string $schemeName): bool
+    protected function designSchemeExists(?string $schemeName = null): bool
     {
+        if (empty($schemeName)) {
+            return false;
+        }
+
         return File::exists(App::configPath().'/designs/'.$schemeName.'.txt');
     }
 
-    protected function designSchemeContents(string $schemeName): ?array
+    protected function designSchemeContents(?string $schemeName = null): ?array
     {
         if (! $this->designSchemeExists($schemeName)) {
             return null;
